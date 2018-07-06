@@ -55,7 +55,7 @@
 - Update：在给定target-to-measurement的情况下，学习如何纠正状态分布
 - Brith/death：学习根据状态，观测数据和路径分配结果识别路径的开始和结束。
 
-首先预测部分会对$x_t$进行预测得到$x_t+1^*$，当$A_t+1$(data association)可用时对预测状态进行更新，得到最终跟踪结果$x_t+1$，并且计算出后来帧的每个target的后续存在的可能性$\varepsilon_t+1$
+首先预测部分会对$x_t$进行预测得到$x_{t+1}^*$，当$A_{t+1}$(data association)可用时对预测状态进行更新，得到最终跟踪结果$x_{t+1}$，并且计算出后来帧的每个target的后续存在的可能性$\varepsilon_{t+1}$
 
 loss:由于将MOTA作为loss函数会带来很多的计算上的问题有可能导致模型无法收敛，所以作者提出了自己的loss函数。最小化预测的状态和更新后的状态以及ground truth之间的均方误差。
 
@@ -63,7 +63,7 @@ loss:由于将MOTA作为loss函数会带来很多的计算上的问题有可能�
     <img src="./img/loss.PNG"/>
 </div>
 
-对于跟踪目标的出现和消失问题，作者使用可变长的向量$\varepsilon\epsilon(0,1)^N$，该$N$维向量表示每个target在当前帧存在的可能性。通过使用交叉熵损失来计算这部分与ground truth的loss。
+对于跟踪目标的出现和消失问题，作者使用可变长的向量$\varepsilon\in(0,1)^N$，该$N$维向量表示每个target在当前帧存在的可能性。通过使用交叉熵损失来计算这部分与ground truth的loss。
 
 <div align=center>
     <img src="./img/loss2.PNG"/>
@@ -77,7 +77,7 @@ loss:由于将MOTA作为loss函数会带来很多的计算上的问题有可能�
 
 ### 分配模块（Data Association with LSTMs）
 
-主要思想是利用LSTM的时间分步功能，预测每一个target的assignment，每一次预测一个target。$C_t+1$是每一个预测状态$x$特征和每一个观测状态$z$特征的距离矩阵。其中的特征包含外观特征和其他的相似性特征。$C_ij=||x^i-z^j||_2$
+主要思想是利用LSTM的时间分步功能，预测每一个target的assignment，每一次预测一个target。$C_{t+1}$是每一个预测状态$x$特征和每一个观测状态$z$特征的距离矩阵。其中的特征包含外观特征和其他的相似性特征。$C_{ij}=||x^i-z^j||_2$
 
 **loss**：作者使用负对数似然loss函数计算误分配cost
 
