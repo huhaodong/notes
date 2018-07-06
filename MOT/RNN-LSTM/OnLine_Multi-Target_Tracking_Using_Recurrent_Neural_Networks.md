@@ -31,7 +31,7 @@
     <img src="./img/f2.PNG"/>
 </div>
 
-### 跟踪状态更新问题
+### 1.跟踪状态更新问题
 
 作者使用LSTM网络作为预测物体运动的网络，LSTM可以选择性的保留之前的状态信息，作者利用这一特性实现了物体消失和物体出现的状态更新操作。
 
@@ -47,7 +47,7 @@
     <img src="./img/fun3.PNG"/>
 </div>
 
-### 跟踪器模块
+### 2.跟踪器模块
 
 跟踪模块主要分为三个部分：
 
@@ -75,7 +75,7 @@ loss:由于将MOTA作为loss函数会带来很多的计算上的问题有可能�
     <img src="./img/f3.PNG"/>
 </div>
 
-### 分配模块（Data Association with LSTMs）
+### 3.分配模块（Data Association with LSTMs）
 
 主要思想是利用LSTM的时间分步功能，预测每一个target的assignment，每一次预测一个target。$C_{t+1}$是每一个预测状态$x$特征和每一个观测状态$z$特征的距离矩阵。其中的特征包含外观特征和其他的相似性特征。$C_{ij}=||x^i-z^j||_2$
 
